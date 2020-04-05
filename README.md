@@ -1,3 +1,3 @@
 # GIMM310-Mobile-AR-App
 
-Using Unity Version 2019.3.6
+Using Unity Version 2019.3.7f1
