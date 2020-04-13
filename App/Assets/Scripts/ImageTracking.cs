@@ -10,6 +10,11 @@ public class ImageTracking : MonoBehaviour
    public ARTrackedImageManager arTrackedImageManager;
    public Text debugText;
 
+
+    // void Awake()
+    // {
+        
+    // }
     void OnEnable()
     {
         arTrackedImageManager.trackedImagesChanged += OnImageChanged;
@@ -21,11 +26,28 @@ public class ImageTracking : MonoBehaviour
 
     public void OnImageChanged(ARTrackedImagesChangedEventArgs args)
     {
-        foreach(var trackedImage in args.added)
+        
+        // foreach(var trackedImage in args.added)
+        // {
+        //     if(trackedImage.referenceImage.name == "washHandsImg")
+        //     {
+        //         debugText.text = trackedImage.referenceImage.name;
+        //     }
+        //     else if(trackedImage.referenceImage.name == "img2")
+        //     {
+        //         debugText.text = trackedImage.referenceImage.name;
+        //     }
+        // }
+        foreach(var trackedImage in args.removed)
         {
-            if(trackedImage.name == "washHandsImg")
+            debugText.text = trackedImage.referenceImage.name;
+            if(trackedImage.referenceImage.name == "washHandsImg")
             {
-                debugText.text = trackedImage.name;
+                debugText.text = trackedImage.referenceImage.name + " removed";
+            }
+            else if(trackedImage.referenceImage.name == "img2")
+            {
+                debugText.text = trackedImage.referenceImage.name + " removed";
             }
         }
     } 
