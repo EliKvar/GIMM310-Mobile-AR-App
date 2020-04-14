@@ -23,7 +23,7 @@ MonoBehaviour:
       m_GuidHigh: 6519919286595723224
     m_Size: {x: 0.3, y: 0.1814815}
     m_SpecifySize: 1
-    m_Name: washHandsImg
+    m_Name: EnvironmentPrefab
     m_Texture: {fileID: 0}
   - m_SerializedGuid:
       m_GuidLow: 5018223125015813088
@@ -33,5 +33,5 @@ MonoBehaviour:
       m_GuidHigh: 205570000894038363
     m_Size: {x: 0.3, y: 0.18024863}
     m_SpecifySize: 1
-    m_Name: img2
+    m_Name: SinkPrefab
     m_Texture: {fileID: 0}
