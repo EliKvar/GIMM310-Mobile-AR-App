@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 848409ee8ba454f42a5ddff137688a27, type: 3}
+  m_Name: ReferenceImageLibrary
+  m_EditorClassIdentifier: 
+  m_GuidLow: 5423962143776337616
+  m_GuidHigh: 5197500818143748252
+  m_Images:
+  - m_SerializedGuid:
+      m_GuidLow: 4646069752444077412
+      m_GuidHigh: 5563468039859565502
+    m_SerializedTextureGuid:
+      m_GuidLow: 17930045253584525097
+      m_GuidHigh: 1680647558242908507
+    m_Size: {x: 0.3, y: 0.18169014}
+    m_SpecifySize: 1
+    m_Name: EnvironmentPrefab
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5018223125015813088
+      m_GuidHigh: 1880813587948952511
+    m_SerializedTextureGuid:
+      m_GuidLow: 8508557937590468377
+      m_GuidHigh: 10033192760940023288
+    m_Size: {x: 0.3, y: 0.18019967}
+    m_SpecifySize: 1
+    m_Name: SinkPrefab
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 4858101162641873570
+      m_GuidHigh: 5677054517465153921
+    m_SerializedTextureGuid:
+      m_GuidLow: 4504847720820843384
+      m_GuidHigh: 15990693248221997274
+    m_Size: {x: 3, y: 1.80602}
+    m_SpecifySize: 1
+    m_Name: NewDispenserPrefab
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5084062016584066718
+      m_GuidHigh: 10989402178345922465
+    m_SerializedTextureGuid:
+      m_GuidLow: 9711067429296887448
+      m_GuidHigh: 1665043311159734745
+    m_Size: {x: 0.3, y: 0.18053098}
+    m_SpecifySize: 1
+    m_Name: HandsPrefab
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5375658183793429993
+      m_GuidHigh: 4885149195146244754
+    m_SerializedTextureGuid:
+      m_GuidLow: 6085499079939419449
+      m_GuidHigh: 141978709861714746
+    m_Size: {x: 0.3, y: 0.18269551}
+    m_SpecifySize: 1
+    m_Name: SoapDispenserPrefab
+    m_Texture: {fileID: 0}
