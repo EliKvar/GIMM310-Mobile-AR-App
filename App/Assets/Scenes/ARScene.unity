@@ -459,6 +459,9 @@ MonoBehaviour:
   arObjectsToPlace:
   - {fileID: 8765251223306688730, guid: f75a7add5b58ef640a65f4ba05247cea, type: 3}
   - {fileID: 8539408180836431953, guid: 387a55e4d65148e4ba829bf2c6d8e9bc, type: 3}
+  - {fileID: 4253624127372551134, guid: d50e6b558336d6a408f9edd3decf98a0, type: 3}
+  - {fileID: 6404411670292409256, guid: 57a0fcfcd1e89a344a9b2145287c3639, type: 3}
+  - {fileID: 5369927848158389387, guid: 69a978e301074dc46a99bb86011333c3, type: 3}
 --- !u!4 &1100101682
 Transform:
   m_ObjectHideFlags: 0

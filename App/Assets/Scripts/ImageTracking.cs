@@ -20,6 +20,7 @@ public class ImageTracking : MonoBehaviour
         {
             GameObject newARObject = Instantiate(arObject, Vector3.zero, Quaternion.identity);
             newARObject.name = arObject.name;
+            newARObject.SetActive(false);
             arObjects.Add(arObject.name, newARObject);
         }
     }
