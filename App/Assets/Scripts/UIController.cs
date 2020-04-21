@@ -9,7 +9,7 @@ public class UIController : MonoBehaviour
     // Start is called before the first frame update
     public void SwitchToARScene()
     {
-       // SceneManager.LoadScene("ARScene");
+        SceneManager.LoadScene("ARScene");
     }
 
    
