@@ -15,8 +15,12 @@ public class ImageTracking : MonoBehaviour
     private Vector3 scaleFactor = new Vector3(.1f, .1f, .1f);
     private List<Animator> animators = new List<Animator>();
 
-   void Awake()
-    { 
+        //This function triggers the end screen. Add where needed
+       // UIController.control.SwitchToEndScreen();
+
+void Awake()
+    {
+        
         // setup all game objects in dictionary
         foreach(GameObject arObject in arObjectsToPlace)
         {
