@@ -12,13 +12,15 @@ public class ImageTracking : MonoBehaviour
     public Text debugText;
     public GameObject[] arObjectsToPlace;
     private Dictionary<string, GameObject> arObjects = new Dictionary<string, GameObject>();
+    private Vector3 scaleFactor = new Vector3(.1f, .1f, .1f);
+    private List<Animator> animators = new List<Animator>();
 
    void Awake()
     { 
         // setup all game objects in dictionary
         foreach(GameObject arObject in arObjectsToPlace)
         {
-            GameObject newARObject = Instantiate(arObject, Vector3.zero, Quaternion.identity);
+            GameObject newARObject = Instantiate(arObject);
             newARObject.name = arObject.name;
             newARObject.SetActive(false);
             arObjects.Add(arObject.name, newARObject);
@@ -36,6 +38,8 @@ public class ImageTracking : MonoBehaviour
 
     public void OnImageChanged(ARTrackedImagesChangedEventArgs args)
     {
+
+        // this is my code that wasn't hiding the game objects when the tracking state went to limited (uncommented code is just an ARCore workaround, apparently my code would have worked on IOS)
         // int count = 1; // counter so we don't track more than one image at a time
         // foreach(var trackedImage in args.added) // looping through all the images currently being tracked (seen)
         // {
@@ -69,7 +73,7 @@ public class ImageTracking : MonoBehaviour
             }
             else
             {
-                UpdateARImage(trackedImage); 
+                UpdateARImage(trackedImage);
             }
         }
     }
@@ -77,7 +81,7 @@ public class ImageTracking : MonoBehaviour
     private void UpdateARImage(ARTrackedImage trackedImage)
     {
         // Display the name of the tracked image in the canvas
-        debugText.text = trackedImage.referenceImage.name;
+        //debugText.text = trackedImage.referenceImage.name;
 
         // Assign and Place Game Object
         AssignGameObject(trackedImage.referenceImage.name, trackedImage.transform.position);
@@ -92,15 +96,48 @@ public class ImageTracking : MonoBehaviour
             GameObject goARObject = arObjects[name];
             goARObject.SetActive(true);
             goARObject.transform.position = newPosition;
-            //goARObject.transform.localScale = scaleFactor;
+            goARObject.transform.localScale = scaleFactor;
             foreach(GameObject go in arObjects.Values)
             {
                 Debug.Log($"Go in arObjects.Values: {go.name}");
                 if(go.name != name)
                 {
+                    StopAnimations(go.name);
                     go.SetActive(false);
                 }
-            } 
+            }
+            PlayCardAnimations(name);
+        }
+    }
+
+    private void PlayCardAnimations(string name)
+    {
+        if(name == "Card1Animation")
+        {
+            GameObject goARObject = arObjects[name];
+            Animator anim = goARObject.transform.Find("LeftHandPrefab").GetComponent<Animator>();
+            animators.Add(anim);
+            anim = goARObject.transform.Find("RightHandPrefab").GetComponent<Animator>();
+            animators.Add(anim);
+            anim = goARObject.transform.Find("SinkPrefab").Find("water").GetComponent<Animator>();
+            animators.Add(anim);
+            debugText.text = name;
+        }
+
+        foreach(Animator animator in animators)
+        {
+            animator.SetBool("start",true);
+            //debugText.text = $"Playing {name} animation";
+        }
+        
+    }
+
+    private void StopAnimations(string name)
+    {
+        foreach(Animator animator in animators)
+        {
+            animator.SetBool("start", false);
+            animators.Remove(animator);
         }
     }
 }
