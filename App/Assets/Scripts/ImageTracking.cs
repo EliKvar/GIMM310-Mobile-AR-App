@@ -13,8 +13,12 @@ public class ImageTracking : MonoBehaviour
     public GameObject[] arObjectsToPlace;
     private Dictionary<string, GameObject> arObjects = new Dictionary<string, GameObject>();
 
-   void Awake()
-    { 
+        //This function triggers the end screen. Add where needed
+       // UIController.control.SwitchToEndScreen();
+
+void Awake()
+    {
+        
         // setup all game objects in dictionary
         foreach(GameObject arObject in arObjectsToPlace)
         {

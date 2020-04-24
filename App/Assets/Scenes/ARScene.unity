@@ -462,6 +462,8 @@ MonoBehaviour:
   - {fileID: 4253624127372551134, guid: 6aacbc838bf58634ba02f0614429c5ab, type: 3}
   - {fileID: 6404411670292409256, guid: 57a0fcfcd1e89a344a9b2145287c3639, type: 3}
   - {fileID: 4326498328081201770, guid: 69a978e301074dc46a99bb86011333c3, type: 3}
+  targetTime: 2
+  UIinstance: {fileID: 0}
 --- !u!4 &1100101682
 Transform:
   m_ObjectHideFlags: 0

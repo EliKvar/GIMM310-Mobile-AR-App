@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/ARScene.unity
     guid: a68ff82322611444599c9bc7cc1f3f06
   - enabled: 1
