@@ -13,16 +13,16 @@ public class ImageTracking : MonoBehaviour
     public GameObject[] arObjectsToPlace;
     private Dictionary<string, GameObject> arObjects = new Dictionary<string, GameObject>();
     private Vector3 scaleFactor = new Vector3(.1f, .1f, .1f);
-    private List<Animator> animators = new List<Animator>();
 
-        //This function triggers the end screen. Add where needed
-       // UIController.control.SwitchToEndScreen();
+    private List<string> shownAnimations = new List<string>();
+    //This function triggers the end screen. Add where needed
+    // UIController.control.SwitchToEndScreen();
 
-void Awake()
+    void Awake()
     {
-        
+
         // setup all game objects in dictionary
-        foreach(GameObject arObject in arObjectsToPlace)
+        foreach (GameObject arObject in arObjectsToPlace)
         {
             GameObject newARObject = Instantiate(arObject);
             newARObject.name = arObject.name;
@@ -71,7 +71,7 @@ void Awake()
 
         foreach (ARTrackedImage trackedImage in args.updated)
         {
-            if(trackedImage.trackingState == TrackingState.Limited || trackedImage.trackingState == TrackingState.None)
+            if (trackedImage.trackingState == TrackingState.Limited || trackedImage.trackingState == TrackingState.None)
             {
                 arObjects[trackedImage.referenceImage.name].SetActive(false);
             }
@@ -79,6 +79,14 @@ void Awake()
             {
                 UpdateARImage(trackedImage);
             }
+        }
+    }
+
+    void Update()
+    {
+        if(shownAnimations.Count == 5)
+        {
+            UIController.control.SwitchToEndScreen();
         }
     }
 
@@ -95,16 +103,16 @@ void Awake()
 
     void AssignGameObject(string name, Vector3 newPosition)
     {
-        if(arObjectsToPlace != null)
+        if (arObjectsToPlace != null)
         {
             GameObject goARObject = arObjects[name];
             goARObject.SetActive(true);
             goARObject.transform.position = newPosition;
             goARObject.transform.localScale = scaleFactor;
-            foreach(GameObject go in arObjects.Values)
+            foreach (GameObject go in arObjects.Values)
             {
                 Debug.Log($"Go in arObjects.Values: {go.name}");
-                if(go.name != name)
+                if (go.name != name)
                 {
                     StopAnimations(go.name);
                     go.SetActive(false);
@@ -116,32 +124,21 @@ void Awake()
 
     private void PlayCardAnimations(string name)
     {
-        if(name == "Card1Animation")
-        {
-            GameObject goARObject = arObjects[name];
-            Animator anim = goARObject.transform.Find("LeftHandPrefab").GetComponent<Animator>();
-            animators.Add(anim);
-            anim = goARObject.transform.Find("RightHandPrefab").GetComponent<Animator>();
-            animators.Add(anim);
-            anim = goARObject.transform.Find("SinkPrefab").Find("water").GetComponent<Animator>();
-            animators.Add(anim);
-            debugText.text = name;
-        }
+        GameObject goARObject = arObjects[name];
+        Animator animator = goARObject.transform.GetComponent<Animator>();
+        animator.SetBool("start", true);
 
-        foreach(Animator animator in animators)
+        if(!shownAnimations.Contains(name))
         {
-            animator.SetBool("start",true);
-            //debugText.text = $"Playing {name} animation";
+            shownAnimations.Add(name);
         }
-        
+        //debugText.text = $"Playing {name} animation";
     }
 
     private void StopAnimations(string name)
     {
-        foreach(Animator animator in animators)
-        {
-            animator.SetBool("start", false);
-            animators.Remove(animator);
-        }
+        GameObject goARObject = arObjects[name];
+        Animator animator = goARObject.transform.GetComponent<Animator>();
+        animator.SetBool("start", false);
     }
 }
