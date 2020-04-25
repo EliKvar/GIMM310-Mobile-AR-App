@@ -32,7 +32,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Card1Animation
+  m_Name: Card2Animation
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:
@@ -59,10 +59,10 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 3212808120717522881}
-    m_Position: {x: 200, y: 0, z: 0}
+    m_Position: {x: 190, y: 60, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3326669829438148445}
-    m_Position: {x: 400, y: 80, z: 0}
+    m_Position: {x: 280, y: 140, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -93,7 +93,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 55792cf2ea9c32142aecf3826f901597, type: 2}
+  m_Motion: {fileID: 7400000, guid: f29546f70e6d7e2418295dfa43d42632, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
