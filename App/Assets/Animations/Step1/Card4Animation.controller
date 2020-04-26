@@ -58,7 +58,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Card3Animation
+  m_Name: Card4Animation
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:
@@ -92,9 +92,6 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: -2057379380618962559}
     m_Position: {x: 530, y: 40, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 8260297572813643089}
-    m_Position: {x: 565, y: 105, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -126,32 +123,6 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 55792cf2ea9c32142aecf3826f901597, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &8260297572813643089
-AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Card4Animation
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: f54ddf166cf8dae44ac58fddb732ff12, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
