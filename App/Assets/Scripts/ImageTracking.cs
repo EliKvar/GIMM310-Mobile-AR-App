@@ -67,6 +67,10 @@ public class ImageTracking : MonoBehaviour
         if(shownAnimations.Count == 5)
         {
             StartCoroutine(sendToWin());
+            shownAnimations.RemoveAt(0);
+            shownAnimations.RemoveAt(1);
+            shownAnimations.RemoveAt(2);
+            shownAnimations.RemoveAt(3);
         }
         
         //targetTime -= Time.deltaTime;
