@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.XR;
 using UnityEngine.XR.ARFoundation;
@@ -17,6 +18,7 @@ public class ImageTracking : MonoBehaviour
     private List<string> shownAnimations = new List<string>();
     //This function triggers the end screen. Add where needed
     // UIController.control.SwitchToEndScreen();
+    public float targetTime = 3.0f;
 
     void Awake()
     {
@@ -66,11 +68,31 @@ public class ImageTracking : MonoBehaviour
         {
             StartCoroutine(sendToWin());
         }
-    }
+        
+        //targetTime -= Time.deltaTime;
+
+        if (targetTime <= 0.0f)
+        {
+            timerEnded();
+            targetTime = 50000;
+        }
+       
+       
+}
+    void timerEnded()
+    {
+
+        shownAnimations.Add("test0");
+        shownAnimations.Add("test1");
+        shownAnimations.Add("test2");
+        shownAnimations.Add("test3");
+        shownAnimations.Add("test4");
+        Debug.Log("shownAnimations.Count = " + shownAnimations.Count +". Now waiting for 9 seconds, representing the final animation.");
+    }  
     private IEnumerator sendToWin()
     {
         yield return new WaitForSeconds(9.0f);
-        UIController.control.SwitchToEndScreen();
+        SceneManager.LoadScene("EndScreenUI");
     }
 
     private void UpdateARImage(ARTrackedImage trackedImage)
