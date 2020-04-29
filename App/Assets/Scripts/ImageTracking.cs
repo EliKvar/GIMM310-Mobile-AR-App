@@ -42,28 +42,6 @@ public class ImageTracking : MonoBehaviour
 
     public void OnImageChanged(ARTrackedImagesChangedEventArgs args)
     {
-
-        // this is my code that wasn't hiding the game objects when the tracking state went to limited (uncommented code is just an ARCore workaround, apparently my code would have worked on IOS)
-        // int count = 1; // counter so we don't track more than one image at a time
-        // foreach(var trackedImage in args.added) // looping through all the images currently being tracked (seen)
-        // {
-        //     if(trackedImage.trackingState == TrackingState.Limited)
-        //     {
-        //         trackedImage.Destroy(trackedImage);
-        //     }
-        //     else
-        //     {
-        //         if(trackedImage.referenceImage.name == "washHandsImg") // the image of someone rinsing their hands at the sink
-        //         {
-        //             debugText.text = trackedImage.trackingState.ToString();
-        //         }
-        //         else if(trackedImage.referenceImage.name == "img2") // the box/code image thing
-        //         {
-        //             //debugText.text = trackedImage.referenceImage.name;
-        //         }
-        //     }
-        //     count++; // increment count for next iteration
-        // }
         foreach (ARTrackedImage trackedImage in args.added)
         {
             UpdateARImage(trackedImage);
@@ -86,8 +64,13 @@ public class ImageTracking : MonoBehaviour
     {
         if(shownAnimations.Count == 5)
         {
-            UIController.control.SwitchToEndScreen();
+            StartCoroutine(sendToWin());
         }
+    }
+    private IEnumerator sendToWin()
+    {
+        yield return new WaitForSeconds(9.0f);
+        UIController.control.SwitchToEndScreen();
     }
 
     private void UpdateARImage(ARTrackedImage trackedImage)
@@ -109,6 +92,7 @@ public class ImageTracking : MonoBehaviour
             goARObject.SetActive(true);
             goARObject.transform.position = newPosition;
             goARObject.transform.localScale = scaleFactor;
+
             foreach (GameObject go in arObjects.Values)
             {
                 Debug.Log($"Go in arObjects.Values: {go.name}");
@@ -126,7 +110,28 @@ public class ImageTracking : MonoBehaviour
     {
         GameObject goARObject = arObjects[name];
         Animator animator = goARObject.transform.GetComponent<Animator>();
-        animator.SetBool("start", true);
+        string boolName = "";
+        if(name == "Card1Animation")
+        {
+            boolName = "card1";
+        }
+        else if(name == "Card2Animation")
+        {
+            boolName = "card2";
+        }
+        else if(name == "Card3Animation")
+        {
+            boolName = "card3";
+        }
+        else if(name == "Card4Animation")
+        {
+            boolName = "card4";
+        }
+        else if(name == "Card5Animation")
+        {
+            boolName = "card5";
+        }
+        animator.SetBool(boolName, true);
 
         if(!shownAnimations.Contains(name))
         {
@@ -139,6 +144,27 @@ public class ImageTracking : MonoBehaviour
     {
         GameObject goARObject = arObjects[name];
         Animator animator = goARObject.transform.GetComponent<Animator>();
-        animator.SetBool("start", false);
+        string boolName = "";
+        if(name == "Card1Animation")
+        {
+            boolName = "card1";
+        }
+        else if(name == "Card2Animation")
+        {
+            boolName = "card2";
+        }
+        else if(name == "Card3Animation")
+        {
+            boolName = "card3";
+        }
+        else if(name == "Card4Animation")
+        {
+            boolName = "card4";
+        }
+        else if(name == "Card5Animation")
+        {
+            boolName = "card5";
+        }
+        animator.SetBool(boolName, true);
     }
 }

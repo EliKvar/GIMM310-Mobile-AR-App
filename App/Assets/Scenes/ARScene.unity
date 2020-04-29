@@ -457,13 +457,11 @@ MonoBehaviour:
   arTrackedImageManager: {fileID: 1523982302}
   debugText: {fileID: 334064046}
   arObjectsToPlace:
-  - {fileID: 4528227236199170919, guid: 21f0711734447f74abf4276f86fc8bb8, type: 3}
-  - {fileID: 8539408180836431953, guid: 387a55e4d65148e4ba829bf2c6d8e9bc, type: 3}
-  - {fileID: 4253624127372551134, guid: 6aacbc838bf58634ba02f0614429c5ab, type: 3}
-  - {fileID: 6404411670292409256, guid: 57a0fcfcd1e89a344a9b2145287c3639, type: 3}
-  - {fileID: 4326498328081201770, guid: 69a978e301074dc46a99bb86011333c3, type: 3}
-  targetTime: 2
-  UIinstance: {fileID: 0}
+  - {fileID: 3245890360784794219, guid: 234a5e6d8449c0c4f97c91ca8b0a5a13, type: 3}
+  - {fileID: 8423124345981463217, guid: c8d92f7336775c942a2a55f11afbb7df, type: 3}
+  - {fileID: 9030694962699525093, guid: 9d20219d43a24b44e916e1350f3f259a, type: 3}
+  - {fileID: 5063696308327356628, guid: 5c5feedce315a91469af13917fcb5027, type: 3}
+  - {fileID: 6324250208760344714, guid: 464e35e357ac9e245bd4922c1b3dc8aa, type: 3}
 --- !u!4 &1100101682
 Transform:
   m_ObjectHideFlags: 0
