@@ -16,12 +16,25 @@ public class ImageTracking : MonoBehaviour
     private Vector3 scaleFactor = new Vector3(.1f, .1f, .1f);
 
     private List<string> shownAnimations = new List<string>();
-    //This function triggers the end screen. Add where needed
-    // UIController.control.SwitchToEndScreen();
-    public float targetTime = 3.0f;
+    public GameObject card1UI;
+    public GameObject card2AND3UI;
+    public GameObject card4UI;
+    public GameObject card5UI;
 
+    public float targetTime = 3.0f;
+        /* These control the UI for the cards, set them appropriately in the logic.
+        card1UI.SetActive();
+        card2AND3UI.SetActive();
+        card4UI.SetActive();
+        card5UI.SetActive();
+        */
     void Awake()
     {
+        //Initializing beginning card UI states. This is not neccesary but may help prevent unexpected issues
+        card1UI.SetActive(true);
+        card2AND3UI.SetActive(false);
+        card4UI.SetActive(false);
+        card5UI.SetActive(false);
 
         // setup all game objects in dictionary
         foreach (GameObject arObject in arObjectsToPlace)
