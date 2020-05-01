@@ -13,7 +13,7 @@ public class ImageTracking : MonoBehaviour
     public Text debugText;
     public GameObject[] arObjectsToPlace;
     private Dictionary<string, GameObject> arObjects = new Dictionary<string, GameObject>();
-    private Vector3 scaleFactor = new Vector3(.1f, .1f, .1f);
+    private Vector3 scaleFactor = new Vector3(.3f, .3f, .3f);
 
     private List<string> shownAnimations = new List<string>();
     //This function triggers the end screen. Add where needed
