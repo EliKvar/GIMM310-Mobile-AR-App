@@ -21,22 +21,19 @@ public class ImageTracking : MonoBehaviour
     private bool isPlayingAudio = false;
     private bool onSoundEffect = false;
     public GameObject card1UI;
-    public GameObject card2AND3UI;
+    public GameObject card2UI;
+    public GameObject card3UI;
     public GameObject card4UI;
     public GameObject card5UI;
 
     public float targetTime = 3.0f;
-        /* These control the UI for the cards, set them appropriately in the logic.
-        card1UI.SetActive();
-        card2AND3UI.SetActive();
-        card4UI.SetActive();
-        card5UI.SetActive();
-        */
+       
     void Awake()
     {
         //Initializing beginning card UI states. This is not neccesary but may help prevent unexpected issues
         card1UI.SetActive(false);
-        card2AND3UI.SetActive(false);
+        card2UI.SetActive(false);
+        card3UI.SetActive(false);
         card4UI.SetActive(false);
         card5UI.SetActive(false);
 
@@ -168,7 +165,7 @@ public class ImageTracking : MonoBehaviour
         else if(name == "Card2Animation")
         {
             boolName = "card2";
-            card2AND3UI.SetActive(true);
+            card2UI.SetActive(true);
             if(!audioSource.isPlaying && !onSoundEffect)
             {
                 audioSource.PlayOneShot(voiceOvers[1]);
@@ -180,7 +177,7 @@ public class ImageTracking : MonoBehaviour
         else if(name == "Card3Animation")
         {
             boolName = "card3";
-            card2AND3UI.SetActive(true);
+            card3UI.SetActive(true);
             if(!audioSource.isPlaying && !onSoundEffect)
             {
                 audioSource.PlayOneShot(voiceOvers[2]);
@@ -247,12 +244,12 @@ public class ImageTracking : MonoBehaviour
         else if(name == "Card2Animation")
         {
             boolName = "card2";
-            card2AND3UI.SetActive(false);
+            card2UI.SetActive(false);
         }
         else if(name == "Card3Animation")
         {
             boolName = "card3";
-            card2AND3UI.SetActive(false);
+            card3UI.SetActive(false);
         }
         else if(name == "Card4Animation")
         {
