@@ -461,6 +461,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arTrackedImageManager: {fileID: 1523982302}
   debugText: {fileID: 334064046}
+  audioSource: {fileID: 1100101683}
+  soundEffects: []
+  voiceOvers:
+  - {fileID: 8300000, guid: 2521f169f515f684092742b06596e859, type: 3}
+  - {fileID: 8300000, guid: f0f6b434868a67b458adb989f5d22797, type: 3}
+  - {fileID: 8300000, guid: 054e2f2c6cdcc4841a70eb8082a0cc87, type: 3}
+  - {fileID: 8300000, guid: 4fd4fb5568ce2874f9acb4cb880495df, type: 3}
+  - {fileID: 8300000, guid: 9e7404c49532a3741962445c711fe323, type: 3}
   arObjectsToPlace:
   - {fileID: 3245890360784794219, guid: 234a5e6d8449c0c4f97c91ca8b0a5a13, type: 3}
   - {fileID: 8423124345981463217, guid: c8d92f7336775c942a2a55f11afbb7df, type: 3}

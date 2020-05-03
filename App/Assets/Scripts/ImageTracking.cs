@@ -18,7 +18,8 @@ public class ImageTracking : MonoBehaviour
     private Dictionary<string, GameObject> arObjects = new Dictionary<string, GameObject>();
     private Vector3 scaleFactor = new Vector3(.3f, .3f, .3f);
     private List<string> shownAnimations = new List<string>();
-
+    private bool isPlayingAudio = false;
+    private bool onSoundEffect = false;
     public GameObject card1UI;
     public GameObject card2AND3UI;
     public GameObject card4UI;
@@ -157,42 +158,65 @@ public class ImageTracking : MonoBehaviour
         {
             boolName = "card1";
             card1UI.SetActive(true);
-            // audioSource.play(voiceOvers[0]);
-            // seconds = voiceOvers[0].length;
+            if(!audioSource.isPlaying && !onSoundEffect)
+            {
+                audioSource.PlayOneShot(voiceOvers[0]);
+                isPlayingAudio = true;
+                seconds = 2.9f;
+            }
         }
         else if(name == "Card2Animation")
         {
             boolName = "card2";
             card2AND3UI.SetActive(true);
-            // audioSource.play(voiceOvers[1]);
-            // seconds = voiceOvers[1].length;
+            if(!audioSource.isPlaying && !onSoundEffect)
+            {
+                audioSource.PlayOneShot(voiceOvers[1]);
+                isPlayingAudio = true;
+                seconds = 8.673f;
+            }
             clip = 1;
         }
         else if(name == "Card3Animation")
         {
             boolName = "card3";
             card2AND3UI.SetActive(true);
-            // audioSource.play(voiceOvers[2]);
-            // seconds = voiceOvers[2].length;
+            if(!audioSource.isPlaying && !onSoundEffect)
+            {
+                audioSource.PlayOneShot(voiceOvers[2]);
+                isPlayingAudio = true;
+                seconds = 7.210f;
+            }
             clip = 2;
         }
         else if(name == "Card4Animation")
         {
             boolName = "card4";
             card4UI.SetActive(true);
-            // audioSource.play(voiceOvers[3]);
-            // seconds = voiceOvers[3].length;
+            if(!audioSource.isPlaying && !onSoundEffect)
+            {
+                audioSource.PlayOneShot(voiceOvers[3]);
+                isPlayingAudio = true;
+                seconds = 4.101f;
+            }
             clip = 3;
         }
         else if(name == "Card5Animation")
         {
             boolName = "card5";
             card5UI.SetActive(true);
-            // audioSource.play(voiceOvers[4]);
-            // seconds = voiceOvers[4].length;
+            if(!audioSource.isPlaying && !onSoundEffect)
+            {
+                audioSource.PlayOneShot(voiceOvers[4]);
+                isPlayingAudio = true;
+                seconds = 4.284f;
+            }
             clip = 4;
         }
-        StartCoroutine(playAnimationAndSound(seconds, boolName, name, clip));
+        if(seconds > 0)
+        {
+            StartCoroutine(playAnimationAndSound(seconds, boolName, name, clip));
+        }
     }
 
     private IEnumerator playAnimationAndSound(float seconds, string boolName, string name, int clip)
@@ -201,6 +225,7 @@ public class ImageTracking : MonoBehaviour
         GameObject goARObject = arObjects[name];
         Animator animator = goARObject.transform.GetComponent<Animator>();
         animator.SetBool(boolName, true);
+        onSoundEffect = true;
         //audioSource.play(soundEffects[clip]);
         if(!shownAnimations.Contains(name))
         {
@@ -213,7 +238,7 @@ public class ImageTracking : MonoBehaviour
         GameObject goARObject = arObjects[name];
         Animator animator = goARObject.transform.GetComponent<Animator>();
         string boolName = "";
-        
+        isPlayingAudio = false;
         if(name == "Card1Animation")
         {
             boolName = "card1";
@@ -240,8 +265,9 @@ public class ImageTracking : MonoBehaviour
             card5UI.SetActive(false);
         }
         animator.SetBool(boolName, false);
-        if(audioSource.isPlaying)
+        if(audioSource.isPlaying && onSoundEffect && animator.GetCurrentAnimatorStateInfo(0).IsName("Base.idle"))
         {
+            onSoundEffect = false;
             audioSource.Stop();
         }
     }
