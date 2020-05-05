@@ -8,13 +8,13 @@ public class UIController : MonoBehaviour
 {
     public static UIController control;
 
-    public GameObject endScreen;
+   // public GameObject endScreen;
     public GameObject titleScreen;
     public GameObject lessonScreen;
     public void Awake()
     {
         control = this;
-        endScreen.SetActive(false);
+        //endScreen.SetActive(false);
         titleScreen.SetActive(true);
         lessonScreen.SetActive(false);
     }
@@ -22,13 +22,13 @@ public class UIController : MonoBehaviour
     {
         SceneManager.LoadScene("ARScene");
     }
-    public void SwitchToEndScreen()
+    public void SwitchToLessonScreen()
     {
         SceneManager.LoadScene("UI");
 
-            endScreen.SetActive(true);
+           // endScreen.SetActive(true);
             titleScreen.SetActive(false);
-            lessonScreen.SetActive(false);
+            lessonScreen.SetActive(true);
         
     }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.XR;
 using UnityEngine.XR.ARFoundation;
@@ -10,16 +11,31 @@ public class ImageTracking : MonoBehaviour
 {
     public ARTrackedImageManager arTrackedImageManager;
     public Text debugText;
+    public AudioSource audioSource;
+    public AudioClip[] soundEffects;
+    public AudioClip[] voiceOvers;
     public GameObject[] arObjectsToPlace;
     private Dictionary<string, GameObject> arObjects = new Dictionary<string, GameObject>();
-    private Vector3 scaleFactor = new Vector3(.1f, .1f, .1f);
-
+    private Vector3 scaleFactor = new Vector3(.3f, .3f, .3f);
     private List<string> shownAnimations = new List<string>();
-    //This function triggers the end screen. Add where needed
-    // UIController.control.SwitchToEndScreen();
+    private bool isPlayingAudio = false;
+    private bool onSoundEffect = false;
+    public GameObject card1UI;
+    public GameObject card2UI;
+    public GameObject card3UI;
+    public GameObject card4UI;
+    public GameObject card5UI;
 
+    public float targetTime = 3.0f;
+       
     void Awake()
     {
+        //Initializing beginning card UI states. This is not neccesary but may help prevent unexpected issues
+        card1UI.SetActive(false);
+        card2UI.SetActive(false);
+        card3UI.SetActive(false);
+        card4UI.SetActive(false);
+        card5UI.SetActive(false);
 
         // setup all game objects in dictionary
         foreach (GameObject arObject in arObjectsToPlace)
@@ -42,28 +58,6 @@ public class ImageTracking : MonoBehaviour
 
     public void OnImageChanged(ARTrackedImagesChangedEventArgs args)
     {
-
-        // this is my code that wasn't hiding the game objects when the tracking state went to limited (uncommented code is just an ARCore workaround, apparently my code would have worked on IOS)
-        // int count = 1; // counter so we don't track more than one image at a time
-        // foreach(var trackedImage in args.added) // looping through all the images currently being tracked (seen)
-        // {
-        //     if(trackedImage.trackingState == TrackingState.Limited)
-        //     {
-        //         trackedImage.Destroy(trackedImage);
-        //     }
-        //     else
-        //     {
-        //         if(trackedImage.referenceImage.name == "washHandsImg") // the image of someone rinsing their hands at the sink
-        //         {
-        //             debugText.text = trackedImage.trackingState.ToString();
-        //         }
-        //         else if(trackedImage.referenceImage.name == "img2") // the box/code image thing
-        //         {
-        //             //debugText.text = trackedImage.referenceImage.name;
-        //         }
-        //     }
-        //     count++; // increment count for next iteration
-        // }
         foreach (ARTrackedImage trackedImage in args.added)
         {
             UpdateARImage(trackedImage);
@@ -71,7 +65,7 @@ public class ImageTracking : MonoBehaviour
 
         foreach (ARTrackedImage trackedImage in args.updated)
         {
-            if (trackedImage.trackingState == TrackingState.Limited || trackedImage.trackingState == TrackingState.None)
+            if (trackedImage.trackingState == TrackingState.Limited || trackedImage.trackingState == TrackingState.None) // limited was added here for it to work in ARCore, for some reason in ARCore nothing ever goes to None
             {
                 arObjects[trackedImage.referenceImage.name].SetActive(false);
             }
@@ -86,8 +80,37 @@ public class ImageTracking : MonoBehaviour
     {
         if(shownAnimations.Count == 5)
         {
-            UIController.control.SwitchToEndScreen();
+            StartCoroutine(sendToWin());
+            shownAnimations.RemoveAt(0);
+            shownAnimations.RemoveAt(1);
+            shownAnimations.RemoveAt(2);
+            shownAnimations.RemoveAt(3);
         }
+        
+        //targetTime -= Time.deltaTime;
+
+        if (targetTime <= 0.0f)
+        {
+            timerEnded();
+            targetTime = 50000;
+        }
+       
+       
+}
+    void timerEnded()
+    {
+
+        shownAnimations.Add("test0");
+        shownAnimations.Add("test1");
+        shownAnimations.Add("test2");
+        shownAnimations.Add("test3");
+        shownAnimations.Add("test4");
+        Debug.Log("shownAnimations.Count = " + shownAnimations.Count +". Now waiting for 9 seconds, representing the final animation.");
+    }  
+    private IEnumerator sendToWin()
+    {
+        yield return new WaitForSeconds(9.0f); // the length of the animation of card5
+        SceneManager.LoadScene("EndScreenUI");
     }
 
     private void UpdateARImage(ARTrackedImage trackedImage)
@@ -109,6 +132,7 @@ public class ImageTracking : MonoBehaviour
             goARObject.SetActive(true);
             goARObject.transform.position = newPosition;
             goARObject.transform.localScale = scaleFactor;
+
             foreach (GameObject go in arObjects.Values)
             {
                 Debug.Log($"Go in arObjects.Values: {go.name}");
@@ -124,21 +148,124 @@ public class ImageTracking : MonoBehaviour
 
     private void PlayCardAnimations(string name)
     {
+        string boolName = "";
+        float seconds = 0f; // this will be to pass to the IEnumerator so when the voiceover is done the animation will play and so will the sound effects.
+        int clip = 0; // the clip index to play after the voiceOver
+        if(name == "Card1Animation")
+        {
+            boolName = "card1";
+            card1UI.SetActive(true);
+            if(!audioSource.isPlaying && !onSoundEffect)
+            {
+                audioSource.PlayOneShot(voiceOvers[0]);
+                isPlayingAudio = true;
+                seconds = 2.9f;
+            }
+        }
+        else if(name == "Card2Animation")
+        {
+            boolName = "card2";
+            card2UI.SetActive(true);
+            if(!audioSource.isPlaying && !onSoundEffect)
+            {
+                audioSource.PlayOneShot(voiceOvers[1]);
+                isPlayingAudio = true;
+                seconds = 8.673f;
+            }
+            clip = 1;
+        }
+        else if(name == "Card3Animation")
+        {
+            boolName = "card3";
+            card3UI.SetActive(true);
+            if(!audioSource.isPlaying && !onSoundEffect)
+            {
+                audioSource.PlayOneShot(voiceOvers[2]);
+                isPlayingAudio = true;
+                seconds = 7.210f;
+            }
+            clip = 2;
+        }
+        else if(name == "Card4Animation")
+        {
+            boolName = "card4";
+            card4UI.SetActive(true);
+            if(!audioSource.isPlaying && !onSoundEffect)
+            {
+                audioSource.PlayOneShot(voiceOvers[3]);
+                isPlayingAudio = true;
+                seconds = 4.101f;
+            }
+            clip = 3;
+        }
+        else if(name == "Card5Animation")
+        {
+            boolName = "card5";
+            card5UI.SetActive(true);
+            if(!audioSource.isPlaying && !onSoundEffect)
+            {
+                audioSource.PlayOneShot(voiceOvers[4]);
+                isPlayingAudio = true;
+                seconds = 4.284f;
+            }
+            clip = 4;
+        }
+        if(seconds > 0)
+        {
+            StartCoroutine(playAnimationAndSound(seconds, boolName, name, clip));
+        }
+    }
+
+    private IEnumerator playAnimationAndSound(float seconds, string boolName, string name, int clip)
+    {
+        yield return new WaitForSeconds(seconds);
         GameObject goARObject = arObjects[name];
         Animator animator = goARObject.transform.GetComponent<Animator>();
-        animator.SetBool("start", true);
-
+        animator.SetBool(boolName, true);
+        onSoundEffect = true;
+        //audioSource.play(soundEffects[clip]);
         if(!shownAnimations.Contains(name))
         {
             shownAnimations.Add(name);
         }
-        //debugText.text = $"Playing {name} animation";
     }
 
     private void StopAnimations(string name)
     {
         GameObject goARObject = arObjects[name];
         Animator animator = goARObject.transform.GetComponent<Animator>();
-        animator.SetBool("start", false);
+        string boolName = "";
+        isPlayingAudio = false;
+        if(name == "Card1Animation")
+        {
+            boolName = "card1";
+            card1UI.SetActive(false);
+        }
+        else if(name == "Card2Animation")
+        {
+            boolName = "card2";
+            card2UI.SetActive(false);
+        }
+        else if(name == "Card3Animation")
+        {
+            boolName = "card3";
+            card3UI.SetActive(false);
+        }
+        else if(name == "Card4Animation")
+        {
+            boolName = "card4";
+            card4UI.SetActive(false);
+        }
+        else if(name == "Card5Animation")
+        {
+            boolName = "card5";
+            card5UI.SetActive(false);
+        }
+        animator.SetBool(boolName, false);
+        if(audioSource.isPlaying && onSoundEffect && animator.GetCurrentAnimatorStateInfo(0).IsName("Base.idle"))
+        {
+            onSoundEffect = false;
+            audioSource.Stop();
+        }
     }
 }
