@@ -11,15 +11,15 @@ public class ImageTracking : MonoBehaviour
 {
     public ARTrackedImageManager arTrackedImageManager;
     public Text debugText;
-    public AudioSource audioSource;
+    public AudioSource voiceOverSource;
+    public AudioSource soundEffectSource;
     public AudioClip[] soundEffects;
     public AudioClip[] voiceOvers;
     public GameObject[] arObjectsToPlace;
     private Dictionary<string, GameObject> arObjects = new Dictionary<string, GameObject>();
     private Vector3 scaleFactor = new Vector3(.3f, .3f, .3f);
     private List<string> shownAnimations = new List<string>();
-    private bool isPlayingAudio = false;
-    private bool onSoundEffect = false;
+    private string currentCard = "";
     public GameObject card1UI;
     public GameObject card2UI;
     public GameObject card3UI;
@@ -115,13 +115,8 @@ public class ImageTracking : MonoBehaviour
 
     private void UpdateARImage(ARTrackedImage trackedImage)
     {
-        // Display the name of the tracked image in the canvas
-        //debugText.text = trackedImage.referenceImage.name;
-
         // Assign and Place Game Object
         AssignGameObject(trackedImage.referenceImage.name, trackedImage.transform.position);
-
-        Debug.Log($"trackedImage.referenceImage.name: {trackedImage.referenceImage.name}");
     }
 
     void AssignGameObject(string name, Vector3 newPosition)
@@ -135,7 +130,6 @@ public class ImageTracking : MonoBehaviour
 
             foreach (GameObject go in arObjects.Values)
             {
-                Debug.Log($"Go in arObjects.Values: {go.name}");
                 if (go.name != name)
                 {
                     StopAnimations(go.name);
@@ -155,22 +149,25 @@ public class ImageTracking : MonoBehaviour
         {
             boolName = "card1";
             card1UI.SetActive(true);
-            if(!audioSource.isPlaying && !onSoundEffect)
+            if(!soundEffectSource.isPlaying)
             {
-                audioSource.PlayOneShot(voiceOvers[0]);
-                isPlayingAudio = true;
-                seconds = 2.9f;
+                if(currentCard != name)
+                {
+                    voiceOverSource.PlayOneShot(voiceOvers[0]);
+                    currentCard = name;
+                }
+                seconds = 3f;
             }
         }
         else if(name == "Card2Animation")
         {
             boolName = "card2";
             card2UI.SetActive(true);
-            if(!audioSource.isPlaying && !onSoundEffect)
+            if(!soundEffectSource.isPlaying && currentCard != name)
             {
-                audioSource.PlayOneShot(voiceOvers[1]);
-                isPlayingAudio = true;
-                seconds = 8.673f;
+                voiceOverSource.PlayOneShot(voiceOvers[1]);
+                currentCard = name;
+                seconds = 9f;
             }
             clip = 1;
         }
@@ -178,11 +175,11 @@ public class ImageTracking : MonoBehaviour
         {
             boolName = "card3";
             card3UI.SetActive(true);
-            if(!audioSource.isPlaying && !onSoundEffect)
+            if(!soundEffectSource.isPlaying && currentCard != name)
             {
-                audioSource.PlayOneShot(voiceOvers[2]);
-                isPlayingAudio = true;
-                seconds = 7.210f;
+                voiceOverSource.PlayOneShot(voiceOvers[2]);
+                currentCard = name;
+                seconds = 8f;
             }
             clip = 2;
         }
@@ -190,11 +187,11 @@ public class ImageTracking : MonoBehaviour
         {
             boolName = "card4";
             card4UI.SetActive(true);
-            if(!audioSource.isPlaying && !onSoundEffect)
+            if(!soundEffectSource.isPlaying && currentCard != name)
             {
-                audioSource.PlayOneShot(voiceOvers[3]);
-                isPlayingAudio = true;
-                seconds = 4.101f;
+                voiceOverSource.PlayOneShot(voiceOvers[3]);
+                currentCard = name;
+                seconds = 5f;
             }
             clip = 3;
         }
@@ -202,15 +199,15 @@ public class ImageTracking : MonoBehaviour
         {
             boolName = "card5";
             card5UI.SetActive(true);
-            if(!audioSource.isPlaying && !onSoundEffect)
+            if(!soundEffectSource.isPlaying  && currentCard != name)
             {
-                audioSource.PlayOneShot(voiceOvers[4]);
-                isPlayingAudio = true;
-                seconds = 4.284f;
+                voiceOverSource.PlayOneShot(voiceOvers[4]);
+                currentCard = name;
+                seconds = 5f;
             }
             clip = 4;
         }
-        if(seconds > 0)
+        if(currentCard == name)
         {
             StartCoroutine(playAnimationAndSound(seconds, boolName, name, clip));
         }
@@ -222,8 +219,8 @@ public class ImageTracking : MonoBehaviour
         GameObject goARObject = arObjects[name];
         Animator animator = goARObject.transform.GetComponent<Animator>();
         animator.SetBool(boolName, true);
-        onSoundEffect = true;
-        //audioSource.play(soundEffects[clip]);
+        soundEffectSource.clip = soundEffects[clip];
+        soundEffectSource.Play();
         if(!shownAnimations.Contains(name))
         {
             shownAnimations.Add(name);
@@ -235,7 +232,6 @@ public class ImageTracking : MonoBehaviour
         GameObject goARObject = arObjects[name];
         Animator animator = goARObject.transform.GetComponent<Animator>();
         string boolName = "";
-        isPlayingAudio = false;
         if(name == "Card1Animation")
         {
             boolName = "card1";
@@ -262,10 +258,6 @@ public class ImageTracking : MonoBehaviour
             card5UI.SetActive(false);
         }
         animator.SetBool(boolName, false);
-        if(audioSource.isPlaying && onSoundEffect && animator.GetCurrentAnimatorStateInfo(0).IsName("Base.idle"))
-        {
-            onSoundEffect = false;
-            audioSource.Stop();
-        }
+        soundEffectSource.Pause();
     }
 }
