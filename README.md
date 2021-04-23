@@ -1,3 +1,14 @@
-# GIMM310-Mobile-AR-App
+# Augmented Reality Mobile App
+This app was prototyped for the surrounding Boise Schools as an educational tool to help kids with autism understand hygiene.
 
-Using Unity Version 2019.3.7f1
+Features:
+- Displays animations/voiceover/UI depending on what image marker the camera is looking at.
+- Uses Augmented Reality to try and help autistic kids learn good hygiene practices.
+- Originally developed in XCode using Swift, ported over to Unity using ARFoundations.
+
+Technologies: </br>
+
+-XCode/Swift</br>
+-Unity</br>
+-C# </br>
+-ARFoundations
